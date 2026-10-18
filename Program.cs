@@ -29,6 +29,17 @@ else
 }
 
 app.UseHttpsRedirection();
+// Kendi kendine kayıt kapalı: kullanıcıları yalnızca admin oluşturur
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path.Value ?? "";
+    if (path.StartsWith("/Identity/Account/Register", StringComparison.OrdinalIgnoreCase))
+    {
+        context.Response.Redirect("/Identity/Account/Login");
+        return;
+    }
+    await next();
+});
 app.UseRouting();
 
 app.UseAuthorization();
