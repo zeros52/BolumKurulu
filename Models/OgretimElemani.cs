@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using BolumKurulu.Web.Validation;
 
 namespace BolumKurulu.Web.Models;
 
@@ -10,7 +11,7 @@ public class OgretimElemani
     [Display(Name = "Ad Soyad")]
     public string AdSoyad { get; set; } = string.Empty;
 
-    [Required, StringLength(11, MinimumLength = 11)]
+    [Required, StringLength(11, MinimumLength = 11), TcKimlikNo]
     [Display(Name = "T.C. Kimlik No")]
     public string TcNo { get; set; } = string.Empty;
 

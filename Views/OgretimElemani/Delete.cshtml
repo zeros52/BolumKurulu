@@ -1,0 +1,16 @@
+@model OgretimElemani
+@{ ViewData["Title"] = "Öğretim Elemanı Sil"; }
+
+<h1>Silmek istediğinize emin misiniz?</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">Ad Soyad</dt><dd class="col-sm-10">@Model.AdSoyad</dd>
+    <dt class="col-sm-2">Sicil No</dt><dd class="col-sm-10">@Model.SicilNo</dd>
+    <dt class="col-sm-2">E-posta</dt><dd class="col-sm-10">@Model.Email</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn btn-danger">Evet, Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+</form>

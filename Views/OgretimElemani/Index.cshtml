@@ -1,0 +1,49 @@
+@model IEnumerable<OgretimElemani>
+@{
+    ViewData["Title"] = "Öğretim Elemanları";
+    var admin = User.IsInRole("Admin");
+}
+
+<h1>Öğretim Elemanları</h1>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-auto">
+        <input name="q" value="@ViewData["q"]" class="form-control" placeholder="Ad, sicil veya e-posta ara" />
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-outline-secondary">Ara</button>
+    </div>
+    @if (admin)
+    {
+        <div class="col-auto ms-auto">
+            <a asp-action="Create" class="btn btn-primary">Yeni Ekle</a>
+        </div>
+    }
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ad Soyad</th><th>T.C. No</th><th>Sicil No</th><th>E-posta</th><th>Durum</th><th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.AdSoyad</td>
+            <td>@(admin ? item.TcNo : item.TcNo[..3] + "******" + item.TcNo[^2..])</td>
+            <td>@item.SicilNo</td>
+            <td>@item.Email</td>
+            <td>@(item.Aktif ? "Aktif" : "Pasif")</td>
+            <td class="text-end">
+                @if (admin)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Sil</a>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
