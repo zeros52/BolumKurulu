@@ -1,0 +1,61 @@
+@model IEnumerable<KullaniciViewModel>
+@{
+    ViewData["Title"] = "Kullanıcılar";
+    var roller = (string[])ViewBag.Roller;
+    var mevcutId = (string?)ViewBag.MevcutKullaniciId;
+}
+
+<h1>Kullanıcılar</h1>
+
+@if (TempData["Mesaj"] is string mesaj)
+{
+    <div class="alert alert-success">@mesaj</div>
+}
+@if (TempData["Hata"] is string hata)
+{
+    <div class="alert alert-danger">@hata</div>
+}
+
+<p><a asp-action="Create" class="btn btn-primary">Yeni Kullanıcı</a></p>
+
+<table class="table table-striped align-middle">
+    <thead>
+        <tr><th>E-posta</th><th>Rol</th><th></th></tr>
+    </thead>
+    <tbody>
+    @foreach (var u in Model)
+    {
+        <tr>
+            <td>@u.Email @(u.Id == mevcutId ? "(siz)" : "")</td>
+            <td>
+                @if (u.Id == mevcutId)
+                {
+                    @u.Rol
+                }
+                else
+                {
+                    <form asp-action="RolDegistir" method="post" class="d-flex gap-2">
+                        <input type="hidden" name="id" value="@u.Id" />
+                        <select name="rol" class="form-select form-select-sm w-auto">
+                            @foreach (var r in roller)
+                            {
+                                <option value="@r" selected="@(r == u.Rol)">@r</option>
+                            }
+                        </select>
+                        <button class="btn btn-sm btn-outline-primary">Güncelle</button>
+                    </form>
+                }
+            </td>
+            <td class="text-end">
+                @if (u.Id != mevcutId)
+                {
+                    <form asp-action="Sil" method="post" onsubmit="return confirm('Bu kullanıcı silinsin mi?');">
+                        <input type="hidden" name="id" value="@u.Id" />
+                        <button class="btn btn-sm btn-outline-danger">Sil</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
