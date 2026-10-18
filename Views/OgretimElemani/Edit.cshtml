@@ -1,0 +1,15 @@
+@model OgretimElemani
+@{ ViewData["Title"] = "Öğretim Elemanı Düzenle"; }
+
+<h1>Öğretim Elemanı Düzenle</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <partial name="_Form" model="Model" />
+    <button class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

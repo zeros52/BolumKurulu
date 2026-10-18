@@ -1,0 +1,28 @@
+@model OgretimElemani
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="mb-3">
+    <label asp-for="AdSoyad" class="form-label"></label>
+    <input asp-for="AdSoyad" class="form-control" />
+    <span asp-validation-for="AdSoyad" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="TcNo" class="form-label"></label>
+    <input asp-for="TcNo" class="form-control" maxlength="11" />
+    <span asp-validation-for="TcNo" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="SicilNo" class="form-label"></label>
+    <input asp-for="SicilNo" class="form-control" />
+    <span asp-validation-for="SicilNo" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Email" class="form-label"></label>
+    <input asp-for="Email" class="form-control" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+</div>
+<div class="form-check mb-3">
+    <input asp-for="Aktif" class="form-check-input" />
+    <label asp-for="Aktif" class="form-check-label">Aktif</label>
+</div>
