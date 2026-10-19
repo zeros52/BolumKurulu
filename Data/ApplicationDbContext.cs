@@ -12,6 +12,7 @@ public class ApplicationDbContext : IdentityDbContext
     }
 
     public DbSet<OgretimElemani> OgretimElemanlari { get; set; }
+    public DbSet<KararYazisi> KararYazilari { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -21,6 +22,11 @@ public class ApplicationDbContext : IdentityDbContext
         {
             e.HasIndex(x => x.TcNo).IsUnique();
             e.HasIndex(x => x.SicilNo).IsUnique();
+        });
+
+        builder.Entity<KararYazisi>(e =>
+        {
+            e.HasIndex(x => new { x.Yil, x.Sayi }).IsUnique();
         });
     }
 }

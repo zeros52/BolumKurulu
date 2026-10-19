@@ -1,0 +1,22 @@
+@model KararYazisi
+@{ ViewData["Title"] = "Yeni Karar"; }
+
+<h1>Yeni Karar</h1>
+<p class="text-muted">Karar numarası kaydedilirken yıla göre otomatik verilir.</p>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Tarih" class="form-label"></label>
+        <input asp-for="Tarih" class="form-control w-auto" />
+        <span asp-validation-for="Tarih" class="text-danger"></span>
+    </div>
+
+    <partial name="_Form" model="Model" />
+
+    <button class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,19 @@
+@model KararYazisi
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="mb-3">
+    <label asp-for="Ilgi" class="form-label"></label>
+    <input asp-for="Ilgi" class="form-control" placeholder="Örn: 12.10.2026 tarih ve 4567 sayılı yazı" />
+    <span asp-validation-for="Ilgi" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Gundem" class="form-label"></label>
+    <textarea asp-for="Gundem" class="form-control" rows="3"></textarea>
+    <span asp-validation-for="Gundem" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="KararMetni" class="form-label"></label>
+    <textarea asp-for="KararMetni" class="form-control" rows="6"></textarea>
+    <span asp-validation-for="KararMetni" class="text-danger"></span>
+</div>

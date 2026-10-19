@@ -38,6 +38,12 @@
         <a class="nav-link text-dark" asp-controller="Kullanici" asp-action="Index">Kullanıcılar</a>
     </li>
 }
+@if (User.IsInRole("Admin") || User.IsInRole("Goruntuleyici"))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="KararYazisi" asp-action="Index">Karar Yazıları</a>
+    </li>
+}
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
