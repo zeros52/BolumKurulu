@@ -22,6 +22,47 @@ namespace BolumKurulu.Web.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BolumKurulu.Web.Models.KararYazisi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Durum")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Gundem")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Ilgi")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("KararMetni")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Sayi")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Tarih")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Yil")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Yil", "Sayi")
+                        .IsUnique();
+
+                    b.ToTable("KararYazilari");
+                });
+
             modelBuilder.Entity("BolumKurulu.Web.Models.OgretimElemani", b =>
                 {
                     b.Property<int>("Id")
