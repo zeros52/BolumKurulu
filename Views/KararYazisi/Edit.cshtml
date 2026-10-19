@@ -1,0 +1,15 @@
+@model KararYazisi
+@{ ViewData["Title"] = "Karar Düzenle"; }
+
+<h1>Karar @Model.KararNo</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <partial name="_Form" model="Model" />
+    <button class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
