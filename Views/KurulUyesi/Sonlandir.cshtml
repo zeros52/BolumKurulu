@@ -1,0 +1,98 @@
+﻿@model BolumKurulu.Web.Models.KurulUyesi
+
+@{
+    ViewData["Title"] = "Üyeliği Sonlandır";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-3">Kurul Üyeliğini Sonlandır</h2>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>Dikkat!</strong>
+        Bu işlem kurul üyeliğini sonlandıracaktır.
+        Öğretim elemanı ve geçmiş üyelik kaydı silinmeyecektir.
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            0
+            <h5 class="card-title mb-4">
+                Üyelik Bilgileri
+            </h5>
+
+            <dl class="row">
+
+                <dt class="col-sm-4">Öğretim Elemanı</dt>
+                <dd class="col-sm-8">
+                    @Model.OgretimElemani.AdSoyad
+                </dd>
+
+                <dt class="col-sm-4">Kurul</dt>
+                <dd class="col-sm-8">
+                    @Model.Kurul.KurulAdi
+                </dd>
+
+                <dt class="col-sm-4">Görev</dt>
+                <dd class="col-sm-8">
+                    @Model.Gorev
+                </dd>
+
+                <dt class="col-sm-4">Başlangıç Tarihi</dt>
+                <dd class="col-sm-8">
+                    @Model.BaslangicTarihi.ToString("dd.MM.yyyy")
+                </dd>
+
+                <dt class="col-sm-4">Mevcut Bitiş Tarihi</dt>
+                <dd class="col-sm-8">
+                    @(Model.BitisTarihi?.ToString("dd.MM.yyyy") ?? "-")
+                </dd>
+
+                <dt class="col-sm-4">Durum</dt>
+                <dd class="col-sm-8">
+                    @if (Model.Aktif)
+                    {
+                        <span class="badge bg-success">Aktif</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Pasif</span>
+                    }
+                </dd>
+
+            </dl>
+
+            <hr />
+
+            <p>
+                <strong>
+                    Bu öğretim elemanının kurul üyeliğini
+                    sonlandırmak istediğinize emin misiniz?
+                </strong>
+            </p>
+
+            <form asp-controller="KurulUyesi"
+                  asp-action="Sonlandir"
+                  asp-route-id="@Model.Id"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <button type="submit"
+                        class="btn btn-danger">
+                    Evet, Üyeliği Sonlandır
+                </button>
+
+                <a asp-controller="KurulUyesi"
+                   asp-action="Index"
+                   asp-route-kurulId="@Model.KurulId"
+                   class="btn btn-secondary">
+                    Vazgeç
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

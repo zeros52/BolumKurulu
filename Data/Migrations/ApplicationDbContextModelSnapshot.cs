@@ -22,6 +22,71 @@ namespace BolumKurulu.Web.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BolumKurulu.Web.Models.Kurul", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Aciklama")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("Aktif")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("KurulAdi")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("OlusturulmaTarihi")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kurullar");
+                });
+
+            modelBuilder.Entity("BolumKurulu.Web.Models.KurulUyesi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Aktif")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("BaslangicTarihi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("BitisTarihi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Gorev")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("KurulId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OgretimElemaniId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OgretimElemaniId");
+
+                    b.HasIndex("KurulId", "OgretimElemaniId");
+
+                    b.ToTable("KurulUyeleri");
+                });
+
             modelBuilder.Entity("BolumKurulu.Web.Models.OgretimElemani", b =>
                 {
                     b.Property<int>("Id")
@@ -266,6 +331,25 @@ namespace BolumKurulu.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BolumKurulu.Web.Models.KurulUyesi", b =>
+                {
+                    b.HasOne("BolumKurulu.Web.Models.Kurul", "Kurul")
+                        .WithMany("Uyeler")
+                        .HasForeignKey("KurulId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BolumKurulu.Web.Models.OgretimElemani", "OgretimElemani")
+                        .WithMany()
+                        .HasForeignKey("OgretimElemaniId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Kurul");
+
+                    b.Navigation("OgretimElemani");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -315,6 +399,11 @@ namespace BolumKurulu.Web.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BolumKurulu.Web.Models.Kurul", b =>
+                {
+                    b.Navigation("Uyeler");
                 });
 #pragma warning restore 612, 618
         }
