@@ -1,4 +1,4 @@
-﻿
+
 using BolumKurulu.Web.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,25 +13,26 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
 
-    public DbSet<OgretimElemani> OgretimElemanlari
-    { get; set; }
+    public DbSet<OgretimElemani> OgretimElemanlari { get; set; }
 
-    public DbSet<Kurul> Kurullar
-    { get; set; }
+    public DbSet<Kurul> Kurullar { get; set; }
 
-    public DbSet<KurulUyesi> KurulUyeleri
-    { get; set; }
+    public DbSet<KurulUyesi> KurulUyeleri { get; set; }
+
+    public DbSet<KararYazisi> KararYazilari { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
+        // Öğretim elemanı benzersizlik kontrolleri
         builder.Entity<OgretimElemani>(e =>
         {
             e.HasIndex(x => x.TcNo).IsUnique();
             e.HasIndex(x => x.SicilNo).IsUnique();
         });
 
+        // Kurul üyeliği ilişkileri
         builder.Entity<KurulUyesi>(e =>
         {
             e.HasOne(x => x.Kurul)
@@ -49,6 +50,16 @@ public class ApplicationDbContext : IdentityDbContext
                 x.KurulId,
                 x.OgretimElemaniId
             });
+        });
+
+        // Karar yazısı benzersizlik kontrolü
+        builder.Entity<KararYazisi>(e =>
+        {
+            e.HasIndex(x => new
+            {
+                x.Yil,
+                x.Sayi
+            }).IsUnique();
         });
     }
 }
