@@ -1,0 +1,78 @@
+﻿@model BolumKurulu.Web.Models.Kurul
+
+@{
+    ViewData["Title"] = "Yeni Kurul Oluştur";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Yeni Kurul Oluştur</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <form asp-controller="Kurul"
+                  asp-action="Create"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="KurulAdi"
+                           class="form-label"></label>
+
+                    <input asp-for="KurulAdi"
+                           class="form-control"
+                           maxlength="150"
+                           placeholder="Örn: Bilgisayar Mühendisliği Bölüm Kurulu" />
+
+                    <span asp-validation-for="KurulAdi"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Aciklama"
+                           class="form-label"></label>
+
+                    <textarea asp-for="Aciklama"
+                              class="form-control"
+                              rows="4"
+                              maxlength="500"
+                              placeholder="Kurul hakkında açıklama yazınız"></textarea>
+
+                    <span asp-validation-for="Aciklama"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input asp-for="Aktif"
+                           class="form-check-input" />
+
+                    <label asp-for="Aktif"
+                           class="form-check-label"></label>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Kaydet
+                </button>
+
+                <a asp-controller="Kurul"
+                   asp-action="Index"
+                   class="btn btn-secondary">
+                    İptal
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

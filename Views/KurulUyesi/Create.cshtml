@@ -1,0 +1,124 @@
+﻿@model BolumKurulu.Web.Models.KurulUyesiEkleViewModel
+
+@{
+    ViewData["Title"] = "Kurula Üye Ekle";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-2">Kurula Üye Ekle</h2>
+
+    <h5 class="text-muted mb-4">
+        @Model.KurulAdi
+    </h5>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <form asp-controller="KurulUyesi"
+                  asp-action="Create"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input asp-for="KurulId" type="hidden" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <!-- Öğretim elemanı seçimi -->
+                <div class="mb-3">
+                    <label asp-for="OgretimElemaniId"
+                           class="form-label">
+                        Öğretim Elemanı
+                    </label>
+
+                    <select asp-for="OgretimElemaniId"
+                            asp-items="Model.OgretimElemanlari"
+                            class="form-select">
+
+                        <option value="0">
+                            -- Öğretim Elemanı Seçiniz --
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="OgretimElemaniId"
+                          class="text-danger"></span>
+                </div>
+
+                <!-- Görev seçimi -->
+                <div class="mb-3">
+                    <label asp-for="Gorev"
+                           class="form-label">
+                        Kuruldaki Görevi
+                    </label>
+
+                    <select asp-for="Gorev"
+                            class="form-select">
+
+                        <option value="Üye">Üye</option>
+                        <option value="Başkan">Başkan</option>
+
+                    </select>
+
+                    <span asp-validation-for="Gorev"
+                          class="text-danger"></span>
+                </div>
+
+                <!-- Başlangıç tarihi -->
+                <div class="mb-3">
+                    <label asp-for="BaslangicTarihi"
+                           class="form-label">
+                        Başlangıç Tarihi
+                    </label>
+
+                    <input asp-for="BaslangicTarihi"
+                           type="date"
+                           class="form-control" />
+
+                    <span asp-validation-for="BaslangicTarihi"
+                          class="text-danger"></span>
+                </div>
+
+                <!-- Bitiş tarihi -->
+                <div class="mb-3">
+                    <label asp-for="BitisTarihi"
+                           class="form-label">
+                        Bitiş Tarihi (İsteğe Bağlı)
+                    </label>
+
+                    <input asp-for="BitisTarihi"
+                           type="date"
+                           class="form-control" />
+
+                    <span asp-validation-for="BitisTarihi"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="d-flex gap-2">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Üyeyi Kaydet
+                    </button>
+
+                    <a asp-controller="KurulUyesi"
+                       asp-action="Index"
+                       asp-route-kurulId="@Model.KurulId"
+                       class="btn btn-secondary">
+                        İptal
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
